@@ -1,0 +1,22 @@
+<div id="dragItem" draggable="true" style="width: 100px; height: 100px; background-color: tomato;">
+    Перетащите меня!
+</div>
+<div id="dropArea" style="width: 300px; height: 300px; background-color: lightgray; margin-top: 20px;">
+    Сюда уроните элемент
+</div>
+<script>
+    const dragItem = document.getElementById('dragItem');
+    const dropArea = document.getElementById('dropArea');
+
+    dragItem.addEventListener('dragstart', (event) => {
+        event.dataTransfer.setData('text/plain', null);
+    });
+
+    dropArea.addEventListener('dragover', (event) => {
+        event.preventDefault();
+    });
+
+    dropArea.addEventListener('drop', () => {
+        dropArea.appendChild(dragItem);
+    });
+</script>

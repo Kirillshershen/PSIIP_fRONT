@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма пользователя</title>
+</head>
+<body>
+    <h1>Пользовательская форма</h1>
+    <form id="userForm">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br><br>
+
+        <label for="subscribe">Подписка на новости:</label>
+        <input type="checkbox" id="subscribe"><br><br>
+
+        <label for="gender">Пол:</label>
+        <input type="radio" name="gender" value="male" checked> Мужской
+        <input type="radio" name="gender" value="female"> Женский<br><br>
+
+        <label for="country">Страна:</label>
+        <select id="country">
+            <option value="ru">Россия</option>
+            <option value="us">США</option>
+            <option value="fr">Франция</option>
+        </select><br><br>
+
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Отменяем отправку формы
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subscribe = document.getElementById('subscribe').checked;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const country = document.getElementById('country').value;
+
+            alert(`Имя: ${name}\nEmail: ${email}\nПодписка: ${subscribe}\nПол: ${gender}\nСтрана: ${country}`);
+        });
+    </script>
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let valid = true;
+    
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+    
+            if (name.trim() === '') {
+                alert('Имя не может быть пустым');
+                valid = false;
+            }
+    
+            if (!/\S+@\S+\.\S+/.test(email)) {
+                alert('Введите корректный email');
+                valid = false;
+            }
+    
+            if (valid) {
+                alert('Форма отправлена успешно!');
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+            if (!regex.test(email)) {
+                alert('Email имеет неверный формат');
+            } else {
+                alert('Email корректен!');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<button id="startTimer">Начать таймер</button>
+<p id="timerOutput">0 секунд</p>
+<script>
+    let seconds = 0;
+    let timer;
+
+    document.getElementById('startTimer').addEventListener('click', () => {
+        clearInterval(timer);
+        seconds = 0;
+        timer = setInterval(() => {
+            seconds++;
+            document.getElementById('timerOutput').textContent = `${seconds} секунд`;
+        }, 1000);
+    });
+</script>

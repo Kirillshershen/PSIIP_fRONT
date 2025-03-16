@@ -1,0 +1,9 @@
+<input type="text" id="textInput" placeholder="Начните вводить текст..." />
+<p id="output"></p>
+<script>
+    const textInput = document.getElementById('textInput');
+    const output = document.getElementById('output');
+    textInput.addEventListener('input', () => {
+        output.textContent = `Вы ввели: ${textInput.value}`;
+    });
+</script>

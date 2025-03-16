@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cookie Example</title>
+</head>
+<body>
+  <h1>Save Your Data</h1>
+  <form id="user-form">
+    <label>Full Name: <input type="text" id="name"></label><br>
+    <label>Email: <input type="email" id="email"></label><br>
+    <label>Date of Birth: <input type="date" id="dob"></label><br>
+    <label>Place of Birth: <input type="text" id="place"></label><br>
+    <label>Hobbies: <input type="text" id="hobbies"></label><br>
+    <button type="button" onclick="saveToCookies()">Save</button>
+    <button type="button" onclick="clearCookies()">Clear Cookies</button>
+  </form>
+  <h2>Saved Data</h2>
+  <div id="saved-data"></div>
+
+  <script>
+    function saveToLocalStorage() {
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const dob = document.getElementById('dob').value;
+  const place = document.getElementById('place').value;
+  const hobbies = document.getElementById('hobbies').value;
+
+  localStorage.setItem('name', name);
+  localStorage.setItem('email', email);
+  localStorage.setItem('dob', dob);
+  localStorage.setItem('place', place);
+  localStorage.setItem('hobbies', hobbies);
+
+  displayLocalStorage();
+}
+
+function displayLocalStorage() {
+  const savedData = document.getElementById('saved-data');
+  savedData.textContent = `
+    Name: ${localStorage.getItem('name')},
+    Email: ${localStorage.getItem('email')},
+    DOB: ${localStorage.getItem('dob')},
+    Place: ${localStorage.getItem('place')},
+    Hobbies: ${localStorage.getItem('hobbies')}
+  `;
+}
+
+function clearLocalStorage() {
+  localStorage.clear();
+  displayLocalStorage();
+}
+  </script>
+</body>
+</html>

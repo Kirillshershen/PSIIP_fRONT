@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма обратной связи</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+        .status {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Форма обратной записи</h2>
+    <form id="feedbackForm">
+        <div class="form-group">
+            <label for="name">Как вас зовут</label>
+            <input type="text" id="name" name="name" required minlength="2" maxlength="50">
+            <span class="status" id="nameStatus"></span>
+        </div>
+        <div class="form-group">
+            <label for="email">Электронная почта</label>
+            <input type="email" id="email" name="email" required>
+            <span class="status" id="emailStatus"></span>
+        </div>
+        <div class="form-group">
+            <label for="subject">Тема сообщения</label>
+            <input type="text" id="subject" name="subject" required minlength="5" maxlength="100">
+            <span class="status" id="subjectStatus"></span>
+        </div>
+        <div class="form-group">
+            <label for="message">Сообщение</label>
+            <textarea id="message" name="message" rows="3" required minlength="10"></textarea>
+        </div>
+        <button type="submit">Отправить сообщение</button>
+    </form>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        const nameRegex = /^[а-яА-ЯёЁa-zA-Z\s-]+$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const subjectRegex = /^[\w\s\-.,!]{5,100}$/; 
+
+        const isNameValid = nameRegex.test(name);
+        const isEmailValid = emailRegex.test(email);
+        const isSubjectValid = subjectRegex.test(subject);
+
+        document.getElementById('nameStatus').textContent = isNameValid ? '✔️' : '❌';
+        document.getElementById('emailStatus').textContent = isEmailValid ? '✔️' : '❌';
+        document.getElementById('subjectStatus').textContent = isSubjectValid ? '✔️' : '❌';
+
+        if (isNameValid && isEmailValid && isSubjectValid && message) {
+            // Вывод данных в диалоговое окно
+            alert(`
+                Имя: ${name}
+                Email: ${email}
+                Тема: ${subject}
+                Сообщение: ${message}
+            `);
+
+            // Сохранение данных в localStorage
+            const feedbackData = {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            };
+            const jsonData = JSON.stringify(feedbackData);
+            localStorage.setItem('feedbackData', jsonData);
+
+            // Вывод данных на страницу
+            const savedData = JSON.parse(localStorage.getItem('feedbackData'));
+            document.getElementById('result').innerHTML = `
+                <strong>Сохраненные значения:</strong><br>
+                Имя: ${savedData.name}<br>
+                Email: ${savedData.email}<br>
+                Тема: ${savedData.subject}<br>
+                Сообщение: ${savedData.message}
+            `;
+        } else {
+            alert('Пожалуйста, заполните все поля корректно.');
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+<div id="mouseArea" style="width: 300px; height: 300px; background-color: lightblue;">
+    Наведите курсор на меня!
+</div>
+<script>
+    const mouseArea = document.getElementById('mouseArea');
+    mouseArea.addEventListener('mouseover', () => {
+        mouseArea.style.backgroundColor = 'lightgreen';
+    });
+    mouseArea.addEventListener('mouseout', () => {
+        mouseArea.style.backgroundColor = 'lightblue';
+    });
+</script>

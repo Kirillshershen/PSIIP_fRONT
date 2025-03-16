@@ -1,0 +1,14 @@
+<div id="scrollArea" style="height: 200px; overflow-y: scroll; border: 1px solid black;">
+    <div style="height: 600px;">
+        Прокручиваемый контент!
+    </div>
+</div>
+<p id="scrollOutput"></p>
+<script>
+    const scrollArea = document.getElementById('scrollArea');
+    const scrollOutput = document.getElementById('scrollOutput');
+
+    scrollArea.addEventListener('scroll', () => {
+        scrollOutput.textContent = `Позиция прокрутки: ${scrollArea.scrollTop}px`;
+    });
+</script>

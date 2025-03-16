@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Демонстрация регулярных выражений</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+        input {
+            width: 300px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Демонстрация регулярных выражений</h1>
+
+    <div>
+        <h2>1. Применение test()</h2>
+        <input type="text" id="testInput" placeholder="Введите текст" />
+        <button id="testButton">Проверить на 'hello'</button>
+        <p id="testResult"></p>
+    </div>
+
+    <div>
+        <h2>2. Применение exec()</h2>
+        <input type="text" id="execInput" placeholder="Введите текст" />
+        <button id="execButton">Найти первое слово</button>
+        <p id="execResult"></p>
+    </div>
+
+    <div>
+        <h2>3. Применение replace()</h2>
+        <input type="text" id="replaceInput" placeholder="Введите текст для замены" />
+        <button id="replaceButton">Заменить слова</button>
+        <p id="replaceResult"></p>
+    </div>
+
+    <div>
+        <h2>4. Применение match()</h2>
+        <input type="text" id="matchInput" placeholder="Введите текст" />
+        <button id="matchButton">Найти все 'пример'</button>
+        <p id="matchResult"></p>
+    </div>
+
+    <div>
+        <h2>5. Применение search()</h2>
+        <input type="text" id="searchInput" placeholder="Введите текст" />
+        <button id="searchButton">Найти 'регулярные'</button>
+        <p id="searchResult"></p>
+    </div>
+
+    <div>
+        <h2>6. Применение split()</h2>
+        <input type="text" id="splitInput" placeholder="Введите текст" />
+        <button id="splitButton">Разделить текст</button>
+        <p id="splitResult"></p>
+    </div>
+
+    <script>
+        // test()
+        document.getElementById('testButton').addEventListener('click', function() {
+            const input = document.getElementById('testInput').value;
+            const regex = /hello/i; // Регулярное выражение с флагом i (игнорировать регистр)
+            const result = regex.test(input);
+            document.getElementById('testResult').textContent = result ? 'Совпадение найдено!' : 'Совпадений не найдено!';
+        });
+
+        // exec()
+        document.getElementById('execButton').addEventListener('click', function() {
+            const input = document.getElementById('execInput').value;
+            const regex = /(\w+)/g; // Регулярное выражение для поиска слов
+            const matches = regex.exec(input);
+
+            document.getElementById('execResult').textContent = matches ? `Найдено слово: ${matches[0]}` : 'Слова не найдены!';
+        });
+
+        // replace()
+        document.getElementById('replaceButton').addEventListener('click', function() {
+            const input = document.getElementById('replaceInput').value;
+            const replacedText = input.replace(/(\w+)/g, 'слово');
+            document.getElementById('replaceResult').textContent = `Текст после замены: ${replacedText}`;
+        });
+
+        // match()
+        document.getElementById('matchButton').addEventListener('click', function() {
+            const input = document.getElementById('matchInput').value;
+            const matches = input.match(/пример/g);
+            document.getElementById('matchResult').textContent = matches ? `Найденные совпадения: ${matches.join(', ')}` : 'Совпадений не найдено!';
+        });
+
+        // search()
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const input = document.getElementById('searchInput').value;
+            const index = input.search(/регулярные/);
+            document.getElementById('searchResult').textContent = index !== -1 ? `Индекс слова "регулярные": ${index}` : 'Слово не найдено!';
+        });
+
+        // split()
+        document.getElementById('splitButton').addEventListener('click', function() {
+            const input = document.getElementById('splitInput').value;
+            const splitResult = input.split(/\s+/); // Разделение по пробелам
+            document.getElementById('splitResult').textContent = `Разделенный текст: ${splitResult.join(', ')}`;
+        });
+    </script>
+</body>
+</html>
